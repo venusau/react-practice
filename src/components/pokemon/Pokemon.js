@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useEffect } from "react";
-function Hook(){
+function Hook(props){
+    const {namePoke} =props
     let url = "https://pokeapi.co/api/v2/pokemon/";
-    let [poke, setPoke] = useState({name:"vicky", weight:""})
+    let [poke, setPoke] = useState({name:null, weight:null})
     async function fetchPoke(pokemon="pikachu"){
         url = url+ pokemon
         let response = await fetch(url);
@@ -17,10 +18,11 @@ function Hook(){
 
     return (
         <>
-        <button onClick={()=> {fetchPoke("ditto")}}> call pokemon</button>
-        {poke.name!="vicky" && <h1>{poke.name}</h1>}
+        <div>
+        <button onClick={()=> {fetchPoke(namePoke)}}> call pokemon</button>
+        {poke.name && <h1>{poke.name}</h1>}
         {poke.weight && <h1>{poke.weight}</h1>}
-        
+        </div>
         </>
     )
 }
